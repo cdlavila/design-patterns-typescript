@@ -51,7 +51,7 @@ export class User {
     }
 
     public setPhoneNumber(phoneNumber: string) {
-        if (!/^[+]?[(]?\d{3})?[-\s.]?\d{3}[-\s.]?\d{4,6}$/.test(phoneNumber)) {
+        if (!/^[+]?[(]?\d{3}?[-\s.]?\d{3}[-\s.]?\d{4,6}$/.test(phoneNumber)) {
             throw new Error('Invalid phone number format');
         }
         this.phoneNumber = phoneNumber;
@@ -64,58 +64,58 @@ enum Gender { Male = 'Male', Female = 'Female', Undefined = 'Undefined' }
  * EN: General interface Builder
  */
 export interface Builder {
-    reset();
-    getProduct();
+    reset(): void;
+    getProduct(): User;
 }
 
 /**
  * EN: User concrete Builder
  */
 export class UserBuilder implements Builder {
-    #user: User;
+    user: User;
 
     constructor() {
         this.reset();
     }
 
     public reset() {
-        this.#user = new User();
+        this.user = new User();
         return this;
     }
 
     getProduct() {
-        const product = this.#user;
+        const product = this.user;
         this.reset();
         return product;
     }
 
     public setName(name: string) {
-        this.#user.setName(name);
+        this.user.setName(name);
         return this;
     }
 
     public setSurname(surname: string) {
-        this.#user.setSurname(surname);
+        this.user.setSurname(surname);
         return this;
     }
 
     public setEmail(email: string) {
-        this.#user.setEmail(email);
+        this.user.setEmail(email);
         return this;
     }
 
     public setMaleGender() {
-        this.#user.setGender(Gender.Male);
+        this.user.setGender(Gender.Male);
         return this;
     }
 
     public setFemaleGender() {
-        this.#user.setGender(Gender.Female);
+        this.user.setGender(Gender.Female);
         return this;
     }
 
     public setUndefinedGender() {
-        this.#user.setGender(Gender.Undefined);
+        this.user.setGender(Gender.Undefined);
         return this;
     }
 
@@ -125,17 +125,17 @@ export class UserBuilder implements Builder {
       city: string,
       zipCode: string,
       country: string) {
-        this.#user.setAddress(streetName, number, city, zipCode, country);
+        this.user.setAddress(streetName, number, city, zipCode, country);
         return this;
     }
 
     public setIsAdmin() {
-        this.#user.setIsAdmin(true);
+        this.user.setIsAdmin(true);
         return this;
     }
 
     public setPhoneNumber(phoneNumber: string) {
-        this.#user.setPhoneNumber(phoneNumber);
+        this.user.setPhoneNumber(phoneNumber);
         return this;
     }
 }

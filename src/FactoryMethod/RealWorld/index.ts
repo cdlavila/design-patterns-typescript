@@ -19,7 +19,7 @@ export abstract class DBConnectionFactory {
  * EN: Concrete factories, each of them produces a concrete connection
  */
 export class MongoConnectionFactory extends DBConnectionFactory {
-    public createDBConnection() {
+    public createDBConnection(): DBConnection {
         return new MongoConnection();
     }
 }
@@ -62,25 +62,28 @@ export class RedisConnection extends DBConnection {
     }
 }
 
-/**
- * EN: The client function accepts any concrete factory
- */
-function main(dbConnectionFactory: DBConnectionFactory) {
-    const dbConnection = dbConnectionFactory.createDBConnection();
-    dbConnection.connect();
-}
+((): void => {
+    /**
+     * EN: The client function accepts any concrete factory
+     */
+    function main(dbConnectionFactory: DBConnectionFactory) {
+        const dbConnection = dbConnectionFactory.createDBConnection();
+        dbConnection.connect();
+    }
 
-/**
- * EN: Based on an environment variable, we create a concrete factory and
- * inject it to the client function
- */
-switch (process.env.DB) {
-case 'Mongo':
-    main(new MongoConnectionFactory());
-    break;
-case 'Redis':
-    main(new RedisConnectionFactory());
-    break;
-default:
-    console.error('Unknown DB');
-}
+    /**
+     * EN: Based on an environment variable, we create a concrete factory and
+     * inject it to the client function
+     */
+// @ts-ignore
+    switch (process.env.DB) {
+    case 'Mongo':
+        main(new MongoConnectionFactory());
+        break;
+    case 'Redis':
+        main(new RedisConnectionFactory());
+        break;
+    default:
+        console.error('Unknown DB');
+    }
+})();

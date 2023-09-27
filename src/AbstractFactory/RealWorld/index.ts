@@ -2,13 +2,16 @@
  * EN: Real World Example for the Abstract Factory design pattern
  *
  * Need: Provide different infrastructure connectors for different
- * environments, for example to mock some dependencies in testing
+ * environments, for example, to mock some dependencies in testing
  * environments, use cloud services in production, etc.
  *
  * Solution: Create an abstract factory to supply variants of file systems,
- * databases and log providers. There is a concrete factory for each
- * environment. This factory is configured to provide different concrete
- * connectors for each type of environment. For example, in development we
+ *  databases, and log providers.
+ *  There is a concrete factory for each
+ * environment.
+ * This factory is configured to provide different concrete
+ * connectors for each type of environment.
+ * For example, in development we
  * use the console to log messages, whereas in production we use the Sentry
  * service.
  */
@@ -17,15 +20,15 @@
  * EN: First of all create some abstract products = connectors
  */
 export abstract class DB {
-    public abstract connect();
+    public abstract connect(): void;
 }
 
 export abstract class FS {
-    public abstract readFile(filename: string);
+    public abstract readFile(filename: string): void;
 }
 
 export abstract class LogProvider {
-    public abstract log(message: string);
+    public abstract log(message: string): void;
 }
 
 /**
@@ -85,7 +88,7 @@ export abstract class EnvironmentFactory {
 /**
  * EN: Finally create a concrete factory, one for each environment. Each
  * factory produces different concrete products = connectors, depending on
- * each environment needs
+ * each need of the environment
  */
 export class DevEnvironmentFactory extends EnvironmentFactory {
     public getDB(): DB {
@@ -134,6 +137,7 @@ function client(environmentFactory: EnvironmentFactory) {
  * EN: Based on an environment variable, inject the concrete factory
  * implementation of the environment to the client function
  */
+// @ts-ignore
 if (process.env.NODE_ENV === 'production') {
     client(new ProdEnvironmentFactory());
 } else {

@@ -35,7 +35,7 @@ interface Builder {
  * вариантов Строителей, реализованных по-разному.
  */
 class ConcreteBuilder1 implements Builder {
-    private product: Product1;
+    private product!: Product1;
 
     /**
      * EN: A fresh builder instance should contain a blank product object, which
@@ -140,7 +140,7 @@ class Product1 {
  * так как клиент может напрямую управлять строителями.
  */
 class Director {
-    private builder: Builder;
+    private builder!: Builder;
 
     /**
      * EN: The Director works with any builder instance that the client code
@@ -182,27 +182,29 @@ class Director {
  * инициирует процесс построения. Конечный результат извлекается из
  * объекта-строителя.
  */
-function clientCode(director: Director) {
-    const builder = new ConcreteBuilder1();
-    director.setBuilder(builder);
+((): void => {
+    function clientCode(director: Director) {
+        const builder = new ConcreteBuilder1();
+        director.setBuilder(builder);
 
-    console.log('Standard basic product:');
-    director.buildMinimalViableProduct();
-    builder.getProduct().listParts();
+        console.log('Standard basic product:');
+        director.buildMinimalViableProduct();
+        builder.getProduct().listParts();
 
-    console.log('Standard full featured product:');
-    director.buildFullFeaturedProduct();
-    builder.getProduct().listParts();
+        console.log('Standard full featured product:');
+        director.buildFullFeaturedProduct();
+        builder.getProduct().listParts();
 
-    // EN: Remember, the Builder pattern can be used without a Director class.
-    //
-    // RU: Помните, что паттерн Строитель можно использовать без класса
-    // Директор.
-    console.log('Custom product:');
-    builder.producePartA();
-    builder.producePartC();
-    builder.getProduct().listParts();
-}
+        // EN: Remember, the Builder pattern can be used without a Director class.
+        //
+        // RU: Помните, что паттерн Строитель можно использовать без класса
+        // Директор.
+        console.log('Custom product:');
+        builder.producePartA();
+        builder.producePartC();
+        builder.getProduct().listParts();
+    }
 
-const director = new Director();
-clientCode(director);
+    const director = new Director();
+    clientCode(director);
+})();
