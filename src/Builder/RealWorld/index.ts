@@ -1,5 +1,5 @@
 /**
- * EN: Real World Example for the Builder design pattern
+ * Real World Example for the Builder design pattern
  *
  * Need: To have a User class with a lot of optional parameters and some complex logic
  *
@@ -7,7 +7,7 @@
  */
 
 /**
- * EN: User concrete class
+ * User concrete class
  */
 export class User {
     public name: string;
@@ -61,7 +61,7 @@ export class User {
 enum Gender { Male = 'Male', Female = 'Female', Undefined = 'Undefined' }
 
 /**
- * EN: General interface Builder
+ * General interface Builder
  */
 export interface Builder {
     reset(): void;
@@ -69,7 +69,7 @@ export interface Builder {
 }
 
 /**
- * EN: User concrete Builder
+ * User concrete Builder
  */
 export class UserBuilder implements Builder {
     user: User;
@@ -141,7 +141,7 @@ export class UserBuilder implements Builder {
 }
 
 /**
- * EN: The client can create as many users needed and with the parts needed
+ * The client can create as many users needed and with the parts needed
  * with a single builder
  */
 const userBuilder = new UserBuilder();
