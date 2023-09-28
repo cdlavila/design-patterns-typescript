@@ -6,49 +6,6 @@
  */
 
 /**
- * The Abstract Factory interface declares a set of methods that return
- * different abstract products. These products are called a family and are
- * related to a high-level theme or concept. Products of one family are usually
- * able to collaborate among themselves. A family of products may have several
- * variants, but the products of one variant are incompatible with products of
- * another.
- */
-interface AbstractFactory {
-    createProductA(): AbstractProductA;
-
-    createProductB(): AbstractProductB;
-}
-
-/**
- * Concrete Factories produce a family of products that belong to a single
- * variant. The factory guarantees that resulting products are compatible. Note
- * that signatures of the Concrete Factory's methods return an abstract product,
- * while inside the method a concrete product is instantiated.
- */
-class ConcreteFactory1 implements AbstractFactory {
-    public createProductA(): AbstractProductA {
-        return new ConcreteProductA1();
-    }
-
-    public createProductB(): AbstractProductB {
-        return new ConcreteProductB1();
-    }
-}
-
-/**
- * Each Concrete Factory has a corresponding product variant.
- */
-class ConcreteFactory2 implements AbstractFactory {
-    public createProductA(): AbstractProductA {
-        return new ConcreteProductA2();
-    }
-
-    public createProductB(): AbstractProductB {
-        return new ConcreteProductB2();
-    }
-}
-
-/**
  * Each distinct product of a product family should have a base interface.
  * All variants of the product must implement this interface.
  */
@@ -103,7 +60,8 @@ class ConcreteProductB1 implements AbstractProductB {
 
     /**
      * The variant, Product B1, is only able to work correctly with the
-     * variant, Product A1. Nevertheless, it accepts any instance of
+     * variant, Product A1.
+     * Nevertheless, it accepts any instance of
      * AbstractProductA as an argument.
      */
     public anotherUsefulFunctionB(collaborator: AbstractProductA): string {
@@ -120,12 +78,56 @@ class ConcreteProductB2 implements AbstractProductB {
 
     /**
      * The variant, Product B2, is only able to work correctly with the
-     * variant, Product A2. Nevertheless, it accepts any instance of
+     * variant, Product A2.
+     * Nevertheless, it accepts any instance of
      * AbstractProductA as an argument.
      */
     public anotherUsefulFunctionB(collaborator: AbstractProductA): string {
         const result = collaborator.usefulFunctionA();
         return `The result of the B2 collaborating with the (${result})`;
+    }
+}
+
+/**
+ * The Abstract Factory interface declares a set of methods that return
+ * different abstract products. These products are called a family and are
+ * related to a high-level theme or concept. Products of one family are usually
+ * able to collaborate among themselves. A family of products may have several
+ * variants, but the products of one variant are incompatible with products of
+ * another.
+ */
+interface AbstractFactory {
+    createProductA(): AbstractProductA;
+
+    createProductB(): AbstractProductB;
+}
+
+/**
+ * Concrete Factories produce a family of products that belong to a single
+ * variant. The factory guarantees that resulting products are compatible. Note
+ * that signatures of the Concrete Factory's methods return an abstract product,
+ * while inside the method a concrete product is instantiated.
+ */
+class ConcreteFactory1 implements AbstractFactory {
+    public createProductA(): AbstractProductA {
+        return new ConcreteProductA1();
+    }
+
+    public createProductB(): AbstractProductB {
+        return new ConcreteProductB1();
+    }
+}
+
+/**
+ * Each Concrete Factory has a corresponding product variant.
+ */
+class ConcreteFactory2 implements AbstractFactory {
+    public createProductA(): AbstractProductA {
+        return new ConcreteProductA2();
+    }
+
+    public createProductB(): AbstractProductB {
+        return new ConcreteProductB2();
     }
 }
 

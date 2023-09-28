@@ -1,5 +1,5 @@
 /**
- * EN: Real World Example for the Abstract Factory design pattern
+ * Real World Example for the Abstract Factory design pattern
  *
  * Need: Provide different infrastructure connectors for different
  * environments, for example, to mock some dependencies in testing
@@ -17,7 +17,7 @@
  */
 
 /**
- * EN: First of all create some abstract products = connectors
+ * First of all, create some abstract products = connectors
  */
 export abstract class DB {
     public abstract connect(): void;
@@ -32,7 +32,7 @@ export abstract class LogProvider {
 }
 
 /**
- * EN: Declare the different concrete product variants
+ * Declare the different concrete product variants
  */
 export class MySQLDB extends DB {
     public connect() {
@@ -77,7 +77,7 @@ export class SentryLogProvider extends LogProvider {
 }
 
 /**
- * EN: Then create the abstract factory
+ * Then create the abstract factory
  */
 export abstract class EnvironmentFactory {
     public abstract getDB(): DB;
@@ -86,7 +86,8 @@ export abstract class EnvironmentFactory {
 }
 
 /**
- * EN: Finally create a concrete factory, one for each environment. Each
+ * Finally, create a concrete factory, one for each environment.
+ * Each
  * factory produces different concrete products = connectors, depending on
  * each need of the environment
  */
@@ -119,7 +120,7 @@ export class ProdEnvironmentFactory extends EnvironmentFactory {
 }
 
 /**
- * EN: The client function receives a factory to produce what it needs to
+ * The client function receives a factory to produce what it needs to
  * execute the application. It's not concerned about the environment.
  */
 function client(environmentFactory: EnvironmentFactory) {
@@ -134,7 +135,7 @@ function client(environmentFactory: EnvironmentFactory) {
 }
 
 /**
- * EN: Based on an environment variable, inject the concrete factory
+ * Based on an environment variable, inject the concrete factory
  * implementation of the environment to the client function
  */
 // @ts-ignore
